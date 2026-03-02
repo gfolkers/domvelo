@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte Isochrones Vélo</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+  <!-- Styles de l'app -->
+  <link rel="stylesheet" href="./css/styles.css"/>
+</head>
+<body>
+  <div id="map">
+<div id="main-title">
+    <h1>🚴 Votre trajet domicile-travail à vélo</h1>
+    <p class="subtitle">Évaluez la faisabilité de votre trajet quotidien à vélo</p>
+  </div>
+  </div>
+
+<div id="steps-container">
+    <div class="step" id="step-1">
+  <div class="step-header">
+    <div class="step-number">1</div>
+    Sélectionnez votre lieu de travail et le type de vélo
+  </div>
+  <div class="controls">
+    <h3>Visualiser les temps de parcours à vélo depuis le site Tisséo de :</h3>
+    <label>
+      <input type="radio" name="site" value="Mesple" checked> 
+      <span class="site-marker-content site-marker-small">M</span> Mesplé
+    </label>
+    <label>
+      <input type="radio" name="site" value="Langlade"> 
+      <span class="site-marker-content site-marker-small">L</span> Langlade
+    </label>
+    <label>
+      <input type="radio" name="site" value="Colomiers"> 
+      <span class="site-marker-content site-marker-small">C</span> Colomiers
+    </label>
+    <label>
+      <input type="radio" name="site" value="Atlanta"> 
+      <span class="site-marker-content site-marker-small">A</span> Atlanta
+    </label>
+    <label>
+      <input type="radio" name="site" value="Garossos"> 
+      <span class="site-marker-content site-marker-small">G</span> Garossos
+    </label>
+
+    <h3>Quel type de vélo ?</h3>
+    <label>
+      <input type="radio" name="bike" value="vel" checked> 🚲 Vélo mécanique
+    </label>
+    <label class="custom-radio">
+      <input type="radio" name="bike" value="vel_elec">
+      <span class="bike-icon">
+        🚲
+        <span class="lightning">⚡</span>
+      </span>
+      Vélo électrique
+    </label>
+
+<!-- DANS step-2 : conteneur pour la note de confidentialité, placer juste sous #geocoder-container -->
+<div id="privacy-note-container" style="margin-top:12px;"></div>
+  
+  </div>
+</div>
+
+
+    <div class="step disabled" id="step-2">
+      <div class="step-header" style="margin-bottom: 60px;">
+        <div class="step-number">2</div>
+        Géolocalisez votre domicile
+      </div>
+      <div id="geocoder-container" style="top: -5px;"></div>
+	  <div class="controls">
+        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+          Votre adresse ne sera pas conservée.
+        </p>
+      </div>
+    </div>
+
+    <div class="step disabled" id="step-3">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        Consultez votre itinéraire
+      </div>
+      <div class="controls">
+        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+          🗺️ Visualisez l'itinéraire optimal pour vous rendre sur le site avec <strong>Géovélo</strong>, l'application de référence pour les trajets à vélo.
+        </p>
+      </div>
+    </div>
+	
+	
+	
+  </div>
+  
+  <div id="legend-control">
+  <div class="legend-inner">
+    <label for="toggle-cyclable" style="display: flex; align-items: center; gap: 8px;">
+      <input type="checkbox" id="toggle-cyclable" checked />
+      <span style="display: flex; align-items: center;">
+        <span class="legend-line"></span>
+        Réseau Cyclable Toulouse Métropole
+      </span>
+    </label>
+  </div>
+</div>
+  
+ 
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="./js/isochrones-data.js"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/cyclable.js"></script>
+
+</body>
+</html>

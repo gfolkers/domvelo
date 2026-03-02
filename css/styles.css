@@ -1,0 +1,351 @@
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    font-family: "Inter", sans-serif; /* Pour le texte courant */
+}
+  #map { height: 100%; }
+  
+  #main-title {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  text-align: right;
+  pointer-events: none;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.8px);
+  -webkit-backdrop-filter: blur(3.8px);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  padding: 20px 30px;
+  max-width: 400px;
+}
+
+#main-title h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 28px;
+  font-weight: 800;
+  font-family: "Nunito", sans-serif; /* Police fun pour le titre */
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+#main-title .subtitle {
+  font-family: "Inter", sans-serif;
+  margin: 12px 0 0 0;
+  padding: 10px 16px;
+  font-size: 15px;
+  color: #34495e;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+
+/* Responsive : titre au-dessus sur mobile */
+@media (max-width: 768px) {
+  #main-title {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    text-align: center;
+    padding: 15px 20px;
+  }
+  
+  #main-title h1 {
+    font-size: 20px;
+  }
+  
+  #main-title .subtitle {
+    font-size: 13px;
+  }
+  
+  #steps-container {
+    width: calc(100% - 40px);
+    top: 140px;
+  }
+}
+
+  
+  #steps-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 15px;
+    width: 450px;
+    height: calc(100% - 100px);
+    overflow-y: auto;
+border: 1px solid rgba(255, 255, 255, 0.17);
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.12);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3.8px);
+-webkit-backdrop-filter: blur(3.8px);
+border: 1px solid rgba(255, 255, 255, 0.17);
+
+  }
+  
+  .step {
+    margin-bottom: 15px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+	background: rgba(255, 255, 255, 0.8);
+  }
+  
+  .step-header {
+    font-weight: bold;
+    font-family: "Nunito", sans-serif;
+	margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .step-number {
+    width: 25px;
+    height: 25px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .step.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  #geocoder-container {
+    position: relative;
+	margin-top : -40px;
+  }
+  
+  .leaflet-control-geocoder {
+    width: 100%;
+  }   
+  
+  .leaflet-control-geocoder input {
+width: 100%;
+padding: 8px;
+height: 16px; /* Fixe une hauteur précise */
+box-sizing: border-box; /* Empêche le padding d'agrandir l'input */
+margin-bottom: 10px;
+transition: none !important; /* Empêche les animations de taille */
+}
+  
+  .leaflet-control-geocoder-results {
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+max-height: 200px;
+overflow-y: auto;
+background: white;
+border: 1px solid #ccc;
+z-index: 2000; 
+box-shadow: 0 2px 8px rgba(0,0,0,0.15); 
+}
+
+#legend-control {
+  position: absolute;      /* au-dessus de la carte */
+  right: 10px;             /* marge à droite */
+  bottom: 20px;            /* marge en bas */
+  left: auto;
+  z-index: 1400;           /* > leaflet layers / controls (1000+) */
+  pointer-events: auto;
+  width: auto;
+  max-width: 300px;
+}
+
+.legend-box {
+background: white;
+padding: 8px 12px;
+border-radius: 8px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+font-size: 14px;
+pointer-events: auto;
+}
+
+.legend-line {
+display: inline-block;
+width: 40px;
+height: 0;
+border-top: 9px solid green; /* correspond à weight: 9 */
+margin-right: 6px;
+}
+
+.custom-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+  }
+  .bike-icon {
+    position: relative;
+    display: inline-block;
+    font-size: 1em; /* Taille des emojis */
+	right : 5px;
+  }
+  .lightning {
+    position: absolute;
+    top: -0.5em; /* Ajustez cette valeur pour positionner l'éclair */
+    left: 90%;
+	margin-right : 3px;
+    transform: translateX(-50%);
+    font-size: 0.8em; /* Taille réduite pour l'éclair */
+  }
+ 
+.custom-site-marker {
+  background: none !important;
+  border: none !important;
+}
+
+.site-marker-content {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4);
+  border: 3px solid white;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Version réduite pour les contrôles */
+.site-marker-small {
+  width: 24px !important;
+  height: 24px !important;
+  font-size: 12px !important;
+  border: 2px solid white !important;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3) !important;
+  margin-right: 6px !important;
+}
+
+/* Amélioration de l'alignement des labels */
+label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+label input[type="radio"] {
+  margin-right: 8px;
+}
+
+#isochrones-legend {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+/* Conteneur de la légende dans la carte (Leaflet control) */
+.leaflet-control-legend {
+  position: relative;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(3.8px);
+  -webkit-backdrop-filter: blur(3.8px);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  padding: 0;
+  margin: 10px;
+  font-size: 13px;
+  min-width: 220px;
+  max-width: 300px;
+  transform: translateY(-80px);
+  overflow: hidden;
+  
+}
+
+/* Fond intérieur (double fond) */
+.legend-inner {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 10px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.legend-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #3498db;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.legend-text {
+  color: #34495e;
+  font-weight: 500;
+}
+
+.legend-swatch {
+  width: 32px;
+  height: 16px;
+  border-radius: 6px;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.legend-30 {
+  background: linear-gradient(90deg, #ffff70, #ffd54a);
+}
+
+.legend-15 {
+  background: linear-gradient(90deg, #66cc66, #2ea02e);
+}
+
+.legend-note {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  color: #7f8c8d;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+@keyframes geocoder-spin {
+  to { transform: rotate(360deg); }
+}
