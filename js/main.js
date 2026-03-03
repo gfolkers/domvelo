@@ -62,6 +62,9 @@ const geojsonData = {
 };
 
 const map = L.map('map').setView([43.6, 1.45], 12);
+if (window.matchMedia('(max-width: 768px)').matches) {
+  map.setView([43.6, 1.45], 11);
+}
 
 L.tileLayer('https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=cWZonTyQBtrCu3JI8qafzk00Q8zsdkuVzhDV77fiGAkaf5vLxTLU2RPfY4e8y0zd', {
   attribution: '&copy; <a href="https://jawg.io">Jawg</a> contributors | Réalisation : Grégoire Folkers-Gay - Tisséo Voyageurs',
@@ -717,6 +720,57 @@ function initializeMobileStepsPanel() {
   }
 }
 
+
+function initializeMobileLegendPanel() {
+  const legendControl = document.getElementById('legend-control');
+  const legendToggle = document.getElementById('mobile-legend-toggle');
+
+  if (!legendControl || !legendToggle) {
+    return;
+  }
+
+  const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+  const closeLegend = () => {
+    legendControl.classList.remove('is-open');
+    legendToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const updateViewportState = () => {
+    if (!mediaQuery.matches) {
+      closeLegend();
+    }
+  };
+
+  legendToggle.addEventListener('click', () => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const isOpen = legendControl.classList.toggle('is-open');
+    legendToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const clickedInsideLegend = legendControl.contains(event.target);
+    const clickedToggle = legendToggle.contains(event.target);
+
+    if (!clickedInsideLegend && !clickedToggle) {
+      closeLegend();
+    }
+  });
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', updateViewportState);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(updateViewportState);
+  }
+}
+
 // Initialiser le bouton Géovélo
 createGeoVeloButton();
 
@@ -743,6 +797,7 @@ document.querySelectorAll('input[name="site"], input[name="bike"]').forEach(inpu
 //Chargement initial des isochrones de Mesplé au démarrage de l'application
 document.addEventListener('DOMContentLoaded', () => {
   initializeMobileStepsPanel();
+  initializeMobileLegendPanel();
   // Vérifier que la radio Mesplé est bien sélectionnée
   const mespleRadio = document.querySelector('input[name="site"][value="Mesple"]');
   const defaultBike = document.querySelector('input[name="bike"]:checked');

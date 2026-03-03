@@ -290,6 +290,15 @@ label {
   background: #8ea1b4;
 }
 
+
+.mobile-legend-toggle {
+  display: none;
+}
+
+.steps-mobile-hint {
+  display: none;
+}
+
 #isochrones-legend {
   margin-top: 8px;
   display: flex;
@@ -429,6 +438,36 @@ label {
     padding: 8px 10px;
   }
 
+
+  .steps-mobile-hint {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: #35506b;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    padding: 6px 10px;
+  }
+
+  .mobile-legend-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 10px;
+    bottom: 72px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    color: #2c3e50;
+    font-weight: 800;
+    font-size: 18px;
+    z-index: 1500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
   #steps-container {
     width: calc(100% - 16px);
     left: 8px;
@@ -494,21 +533,26 @@ label {
   #legend-control {
     left: 8px;
     right: 8px;
-    bottom: 74px;
+    bottom: 120px;
     max-width: none;
-    transition: opacity 0.2s ease;
+    display: none;
   }
 
-  #steps-container.is-expanded ~ #legend-control {
-    opacity: 0;
-    pointer-events: none;
+  #legend-control.is-open {
+    display: block;
+  }
+
+  #legend-control .legend-inner {
+    margin: 0;
+    padding: 12px;
+  }
+
+  #legend-control .legend-item {
+    margin-bottom: 10px;
   }
 
   .leaflet-control-legend {
-    transform: none;
-    min-width: 0;
-    max-width: none;
-    margin: 0;
+    display: none;
   }
 
   .legend-inner {

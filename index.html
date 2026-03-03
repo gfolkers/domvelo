@@ -24,6 +24,7 @@
     <span class="steps-toggle-handle" aria-hidden="true"></span>
     <span class="steps-toggle-text">Afficher les étapes</span>
   </button>
+  <p class="steps-mobile-hint">👆 Appuyez sur « Afficher les étapes » pour ouvrir les réglages.</p>
     <div class="step" id="step-1">
   <div class="step-header">
     <div class="step-number">1</div>
@@ -101,17 +102,37 @@
 	
   </div>
   
+
+  <button id="mobile-legend-toggle" class="mobile-legend-toggle" type="button" aria-expanded="false" aria-controls="legend-control" aria-label="Afficher la légende">i</button>
+
   <div id="legend-control">
   <div class="legend-inner">
-    <label for="toggle-cyclable" class="legend-toggle-label">
-      <input type="checkbox" id="toggle-cyclable" checked />
-      <span class="legend-toggle-content">
-        <span class="legend-line"></span>
-        Réseau Cyclable Toulouse Métropole
-      </span>
-    </label>
+    <div class="mobile-legend-content">
+      <div class="legend-title">
+        <span style="font-size: 18px;">🚴</span>
+        <span>Temps de parcours</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch legend-30"></span>
+        <span class="legend-text">Moins de 30 minutes</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch legend-15"></span>
+        <span class="legend-text">Moins de 15 minutes</span>
+      </div>
+      <div class="legend-item">
+        <label for="toggle-cyclable" class="legend-toggle-label">
+          <input type="checkbox" id="toggle-cyclable" checked />
+          <span class="legend-toggle-content">
+            <span class="legend-line"></span>
+            Réseau Cyclable Toulouse Métropole
+          </span>
+        </label>
+      </div>
+    </div>
   </div>
 </div>
+
   
  
 
