@@ -695,11 +695,13 @@ function initializeMobileStepsPanel() {
     if (mediaQuery.matches) {
       stepsContainer.classList.remove('is-expanded');
       stepsContainer.classList.add('is-collapsed');
+      document.body.classList.remove('mobile-steps-expanded');
       stepsToggle.setAttribute('aria-expanded', 'false');
       stepsToggleText.textContent = 'Afficher les étapes';
     } else {
       stepsContainer.classList.remove('is-expanded');
       stepsContainer.classList.remove('is-collapsed');
+      document.body.classList.remove('mobile-steps-expanded');
       stepsToggle.setAttribute('aria-expanded', 'true');
       stepsToggleText.textContent = 'Étapes';
     }
@@ -714,6 +716,7 @@ function initializeMobileStepsPanel() {
     stepsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     stepsToggleText.textContent = expanded ? 'Masquer les étapes' : 'Afficher les étapes';
     stepsContainer.classList.toggle('is-collapsed', !expanded);
+    document.body.classList.toggle('mobile-steps-expanded', expanded);
   });
 
   applyStateForViewport();

@@ -390,8 +390,9 @@ label {
 
 
 .leaflet-top.leaflet-right {
-  top: 20px;
+  top: 50%;
   right: 20px;
+  transform: translateY(-50%);
 }
 
 .leaflet-control-zoom {
@@ -474,7 +475,7 @@ label {
     justify-content: center;
     position: absolute;
     right: 10px;
-    top: 50%;
+    top: 44%;
     transform: translateY(-50%);
     bottom: auto;
     width: 40px;
@@ -493,7 +494,7 @@ label {
     left: 8px;
     right: 8px;
     top: auto;
-    bottom: 8px;
+    bottom: 14px;
     height: min(70vh, 560px);
     padding: 10px;
     border-radius: 14px;
@@ -592,8 +593,17 @@ label {
   }
 
   .leaflet-top.leaflet-right {
-    top: 10px;
+    top: calc(44% - 90px);
     right: 10px;
+    transform: none;
+  }
+
+  body.mobile-steps-expanded .mobile-legend-toggle {
+    top: 30%;
+  }
+
+  body.mobile-steps-expanded .leaflet-top.leaflet-right {
+    top: calc(30% - 90px);
   }
 
   .legend-inner {
