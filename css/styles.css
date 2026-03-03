@@ -428,7 +428,7 @@ label {
 }
 
 /* Smartphone */
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   #main-title {
     top: 8px;
     right: 8px;
@@ -470,12 +470,13 @@ label {
   }
 
   .mobile-legend-toggle {
+    --mobile-control-right: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 10px;
-    top: 44%;
+    right: var(--mobile-control-right);
+    top: 56%;
     transform: translateY(-50%);
     bottom: auto;
     width: 40px;
@@ -593,17 +594,17 @@ label {
   }
 
   .leaflet-top.leaflet-right {
-    top: calc(44% - 90px);
-    right: 10px;
+    top: calc(56% - 120px);
+    right: 12px;
     transform: none;
   }
 
   body.mobile-steps-expanded .mobile-legend-toggle {
-    top: 30%;
+    top: 46%;
   }
 
   body.mobile-steps-expanded .leaflet-top.leaflet-right {
-    top: calc(30% - 90px);
+    top: calc(46% - 120px);
   }
 
   .legend-inner {

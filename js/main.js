@@ -63,7 +63,7 @@ const geojsonData = {
 
 const map = L.map('map', { zoomControl: false }).setView([43.6, 1.45], 12);
 L.control.zoom({ position: 'topright' }).addTo(map);
-if (window.matchMedia('(max-width: 768px)').matches) {
+if (window.matchMedia('(max-width: 700px)').matches) {
   map.setView([43.6, 1.45], 11);
 }
 
@@ -689,7 +689,7 @@ function initializeMobileStepsPanel() {
     return;
   }
 
-  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  const mediaQuery = window.matchMedia('(max-width: 700px)');
 
   const applyStateForViewport = () => {
     if (mediaQuery.matches) {
@@ -737,7 +737,7 @@ function initializeMobileLegendPanel() {
     return;
   }
 
-  const mediaQuery = window.matchMedia('(max-width: 768px)');
+  const mediaQuery = window.matchMedia('(max-width: 700px)');
 
   const closeLegend = () => {
     legendControl.classList.remove('is-open');
