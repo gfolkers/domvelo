@@ -61,7 +61,8 @@ const geojsonData = {
   }
 };
 
-const map = L.map('map').setView([43.6, 1.45], 12);
+const map = L.map('map', { zoomControl: false }).setView([43.6, 1.45], 12);
+L.control.zoom({ position: 'topright' }).addTo(map);
 if (window.matchMedia('(max-width: 768px)').matches) {
   map.setView([43.6, 1.45], 11);
 }
@@ -113,7 +114,8 @@ legendControl.onAdd = function () {
   }
   return container;
 };
-legendControl.addTo(map);
+// Légende Leaflet désactivée pour éviter le doublon avec #legend-control
+// legendControl.addTo(map);
 
 
 
@@ -692,10 +694,12 @@ function initializeMobileStepsPanel() {
   const applyStateForViewport = () => {
     if (mediaQuery.matches) {
       stepsContainer.classList.remove('is-expanded');
+      stepsContainer.classList.add('is-collapsed');
       stepsToggle.setAttribute('aria-expanded', 'false');
       stepsToggleText.textContent = 'Afficher les étapes';
     } else {
       stepsContainer.classList.remove('is-expanded');
+      stepsContainer.classList.remove('is-collapsed');
       stepsToggle.setAttribute('aria-expanded', 'true');
       stepsToggleText.textContent = 'Étapes';
     }
@@ -709,6 +713,7 @@ function initializeMobileStepsPanel() {
     const expanded = stepsContainer.classList.toggle('is-expanded');
     stepsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     stepsToggleText.textContent = expanded ? 'Masquer les étapes' : 'Afficher les étapes';
+    stepsContainer.classList.toggle('is-collapsed', !expanded);
   });
 
   applyStateForViewport();
