@@ -62,20 +62,20 @@
     </label>
 
 <!-- DANS step-2 : conteneur pour la note de confidentialité, placer juste sous #geocoder-container -->
-<div id="privacy-note-container" style="margin-top:12px;"></div>
+<div id="privacy-note-container" class="privacy-note-container"></div>
   
   </div>
 </div>
 
 
     <div class="step disabled" id="step-2">
-      <div class="step-header" style="margin-bottom: 60px;">
+      <div class="step-header step-2-header">
         <div class="step-number">2</div>
         Géolocalisez votre domicile
       </div>
-      <div id="geocoder-container" style="top: -5px;"></div>
+      <div id="geocoder-container"></div>
 	  <div class="controls">
-        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        <p class="step-note">
           Votre adresse ne sera pas conservée.
         </p>
       </div>
@@ -87,7 +87,7 @@
         Consultez votre itinéraire
       </div>
       <div class="controls">
-        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        <p class="step-note">
           🗺️ Visualisez l'itinéraire optimal pour vous rendre sur le site avec <strong>Géovélo</strong>, l'application de référence pour les trajets à vélo.
         </p>
       </div>
@@ -99,9 +99,9 @@
   
   <div id="legend-control">
   <div class="legend-inner">
-    <label for="toggle-cyclable" style="display: flex; align-items: center; gap: 8px;">
+    <label for="toggle-cyclable" class="legend-toggle-label">
       <input type="checkbox" id="toggle-cyclable" checked />
-      <span style="display: flex; align-items: center;">
+      <span class="legend-toggle-content">
         <span class="legend-line"></span>
         Réseau Cyclable Toulouse Métropole
       </span>

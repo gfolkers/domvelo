@@ -251,7 +251,8 @@ function createGeocoder() {
   searchContainer.className = 'geocoder-search-container';
   searchContainer.style.cssText = `
     position: relative;
-    width: 300px;
+    width: 100%;
+    max-width: 100%;
     font-family: Arial, sans-serif;
   `;
 
