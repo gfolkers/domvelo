@@ -530,24 +530,14 @@ label {
     top: 0;
     z-index: 4;
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0 8px 14px -10px rgba(0, 0, 0, 0.35);
-    margin-bottom: 14px;
-  }
-
-  .steps-toggle::after {
-    content: '';
-    position: absolute;
-    left: -10px;
-    right: -10px;
-    bottom: -18px;
-    height: 22px;
-    background: rgba(255, 255, 255, 1);
-    pointer-events: none;
+    box-shadow: 0 4px 10px -8px rgba(0, 0, 0, 0.35);
+    margin: 0;
   }
 
   #steps-container .steps-toggle-text {
     font-size: 13px;
   }
+
 
   .step {
     padding: 14px;
