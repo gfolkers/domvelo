@@ -266,6 +266,30 @@ label {
   margin-top: 0;
 }
 
+
+.steps-toggle {
+  display: none;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2c3e50;
+  font-weight: 600;
+  padding: 8px 12px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.steps-toggle-handle {
+  width: 34px;
+  height: 4px;
+  border-radius: 999px;
+  background: #8ea1b4;
+}
+
 #isochrones-legend {
   margin-top: 8px;
   display: flex;
@@ -411,9 +435,27 @@ label {
     right: 8px;
     top: auto;
     bottom: 8px;
-    height: min(56vh, 460px);
+    height: min(70vh, 560px);
     padding: 10px;
     border-radius: 14px;
+    overflow-y: auto;
+    transition: transform 0.25s ease;
+    transform: translateY(calc(100% - 62px));
+  }
+
+  #steps-container.is-expanded {
+    transform: translateY(0);
+  }
+
+  .steps-toggle {
+    display: inline-flex;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  #steps-container .steps-toggle-text {
+    font-size: 13px;
   }
 
   .step {
@@ -452,8 +494,14 @@ label {
   #legend-control {
     left: 8px;
     right: 8px;
-    bottom: calc(min(56vh, 460px) + 16px);
+    bottom: 74px;
     max-width: none;
+    transition: opacity 0.2s ease;
+  }
+
+  #steps-container.is-expanded ~ #legend-control {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .leaflet-control-legend {

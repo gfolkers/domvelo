@@ -674,6 +674,49 @@ function createGeoVeloButton() {
   updateRouteNote();
 }
 
+
+function initializeMobileStepsPanel() {
+  const stepsContainer = document.getElementById('steps-container');
+  const stepsToggle = document.getElementById('steps-toggle');
+  const stepsToggleText = stepsToggle ? stepsToggle.querySelector('.steps-toggle-text') : null;
+
+  if (!stepsContainer || !stepsToggle || !stepsToggleText) {
+    return;
+  }
+
+  const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+  const applyStateForViewport = () => {
+    if (mediaQuery.matches) {
+      stepsContainer.classList.remove('is-expanded');
+      stepsToggle.setAttribute('aria-expanded', 'false');
+      stepsToggleText.textContent = 'Afficher les étapes';
+    } else {
+      stepsContainer.classList.remove('is-expanded');
+      stepsToggle.setAttribute('aria-expanded', 'true');
+      stepsToggleText.textContent = 'Étapes';
+    }
+  };
+
+  stepsToggle.addEventListener('click', () => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const expanded = stepsContainer.classList.toggle('is-expanded');
+    stepsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    stepsToggleText.textContent = expanded ? 'Masquer les étapes' : 'Afficher les étapes';
+  });
+
+  applyStateForViewport();
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', applyStateForViewport);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(applyStateForViewport);
+  }
+}
+
 // Initialiser le bouton Géovélo
 createGeoVeloButton();
 
@@ -699,6 +742,7 @@ document.querySelectorAll('input[name="site"], input[name="bike"]').forEach(inpu
 
 //Chargement initial des isochrones de Mesplé au démarrage de l'application
 document.addEventListener('DOMContentLoaded', () => {
+  initializeMobileStepsPanel();
   // Vérifier que la radio Mesplé est bien sélectionnée
   const mespleRadio = document.querySelector('input[name="site"][value="Mesple"]');
   const defaultBike = document.querySelector('input[name="bike"]:checked');
