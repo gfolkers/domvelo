@@ -411,8 +411,9 @@ function createGeocoder() {
         li.style.backgroundColor = 'white';
       });
 
-      li.addEventListener('click', () => {
-        selectAddress(feature);
+      li.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      selectAddress(feature);
       });
 
       suggestionsList.appendChild(li);
