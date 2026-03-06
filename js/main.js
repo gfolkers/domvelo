@@ -61,7 +61,11 @@ const geojsonData = {
   }
 };
 
-const map = L.map('map').setView([43.6, 1.45], 12);
+const map = L.map('map', { zoomControl: false }).setView([43.6, 1.45], 12);
+L.control.zoom({ position: 'topright' }).addTo(map);
+if (window.matchMedia('(max-width: 700px)').matches) {
+  map.setView([43.6, 1.45], 11);
+}
 
 L.tileLayer('https://{s}.tile.jawg.io/jawg-terrain/{z}/{x}/{y}{r}.png?access-token=cWZonTyQBtrCu3JI8qafzk00Q8zsdkuVzhDV77fiGAkaf5vLxTLU2RPfY4e8y0zd', {
   attribution: '&copy; <a href="https://jawg.io">Jawg</a> contributors | Réalisation : Grégoire Folkers-Gay - Tisséo Voyageurs',
@@ -110,7 +114,8 @@ legendControl.onAdd = function () {
   }
   return container;
 };
-legendControl.addTo(map);
+// Légende Leaflet désactivée pour éviter le doublon avec #legend-control
+// legendControl.addTo(map);
 
 
 
@@ -251,7 +256,8 @@ function createGeocoder() {
   searchContainer.className = 'geocoder-search-container';
   searchContainer.style.cssText = `
     position: relative;
-    width: 300px;
+    width: 100%;
+    max-width: 100%;
     font-family: Arial, sans-serif;
   `;
 
@@ -673,6 +679,106 @@ function createGeoVeloButton() {
   updateRouteNote();
 }
 
+
+function initializeMobileStepsPanel() {
+  const stepsContainer = document.getElementById('steps-container');
+  const stepsToggle = document.getElementById('steps-toggle');
+  const stepsToggleText = stepsToggle ? stepsToggle.querySelector('.steps-toggle-text') : null;
+
+  if (!stepsContainer || !stepsToggle || !stepsToggleText) {
+    return;
+  }
+
+  const mediaQuery = window.matchMedia('(max-width: 700px)');
+
+  const applyStateForViewport = () => {
+    if (mediaQuery.matches) {
+      stepsContainer.classList.remove('is-expanded');
+      stepsContainer.classList.add('is-collapsed');
+      document.body.classList.remove('mobile-steps-expanded');
+      stepsToggle.setAttribute('aria-expanded', 'false');
+      stepsToggleText.textContent = 'Afficher les étapes';
+    } else {
+      stepsContainer.classList.remove('is-expanded');
+      stepsContainer.classList.remove('is-collapsed');
+      document.body.classList.remove('mobile-steps-expanded');
+      stepsToggle.setAttribute('aria-expanded', 'true');
+      stepsToggleText.textContent = 'Étapes';
+    }
+  };
+
+  stepsToggle.addEventListener('click', () => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const expanded = stepsContainer.classList.toggle('is-expanded');
+    stepsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    stepsToggleText.textContent = expanded ? 'Masquer les étapes' : 'Afficher les étapes';
+    stepsContainer.classList.toggle('is-collapsed', !expanded);
+    document.body.classList.toggle('mobile-steps-expanded', expanded);
+  });
+
+  applyStateForViewport();
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', applyStateForViewport);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(applyStateForViewport);
+  }
+}
+
+
+function initializeMobileLegendPanel() {
+  const legendControl = document.getElementById('legend-control');
+  const legendToggle = document.getElementById('mobile-legend-toggle');
+
+  if (!legendControl || !legendToggle) {
+    return;
+  }
+
+  const mediaQuery = window.matchMedia('(max-width: 700px)');
+
+  const closeLegend = () => {
+    legendControl.classList.remove('is-open');
+    legendToggle.setAttribute('aria-expanded', 'false');
+  };
+
+  const updateViewportState = () => {
+    if (!mediaQuery.matches) {
+      closeLegend();
+    }
+  };
+
+  legendToggle.addEventListener('click', () => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const isOpen = legendControl.classList.toggle('is-open');
+    legendToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    const clickedInsideLegend = legendControl.contains(event.target);
+    const clickedToggle = legendToggle.contains(event.target);
+
+    if (!clickedInsideLegend && !clickedToggle) {
+      closeLegend();
+    }
+  });
+
+  if (typeof mediaQuery.addEventListener === 'function') {
+    mediaQuery.addEventListener('change', updateViewportState);
+  } else if (typeof mediaQuery.addListener === 'function') {
+    mediaQuery.addListener(updateViewportState);
+  }
+}
+
 // Initialiser le bouton Géovélo
 createGeoVeloButton();
 
@@ -698,6 +804,8 @@ document.querySelectorAll('input[name="site"], input[name="bike"]').forEach(inpu
 
 //Chargement initial des isochrones de Mesplé au démarrage de l'application
 document.addEventListener('DOMContentLoaded', () => {
+  initializeMobileStepsPanel();
+  initializeMobileLegendPanel();
   // Vérifier que la radio Mesplé est bien sélectionnée
   const mespleRadio = document.querySelector('input[name="site"][value="Mesple"]');
   const defaultBike = document.querySelector('input[name="bike"]:checked');

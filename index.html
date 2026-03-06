@@ -20,6 +20,11 @@
   </div>
 
 <div id="steps-container">
+  <button id="steps-toggle" class="steps-toggle" type="button" aria-expanded="false" aria-controls="step-1 step-2 step-3">
+    <span class="steps-toggle-handle" aria-hidden="true"></span>
+    <span class="steps-toggle-text">Afficher les étapes</span>
+  </button>
+  <p class="steps-mobile-hint">👆 Appuyez sur « Afficher les étapes » pour ouvrir les réglages.</p>
     <div class="step" id="step-1">
   <div class="step-header">
     <div class="step-number">1</div>
@@ -62,20 +67,20 @@
     </label>
 
 <!-- DANS step-2 : conteneur pour la note de confidentialité, placer juste sous #geocoder-container -->
-<div id="privacy-note-container" style="margin-top:12px;"></div>
+<div id="privacy-note-container" class="privacy-note-container"></div>
   
   </div>
 </div>
 
 
     <div class="step disabled" id="step-2">
-      <div class="step-header" style="margin-bottom: 60px;">
+      <div class="step-header step-2-header">
         <div class="step-number">2</div>
         Géolocalisez votre domicile
       </div>
-      <div id="geocoder-container" style="top: -5px;"></div>
+      <div id="geocoder-container"></div>
 	  <div class="controls">
-        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        <p class="step-note">
           Votre adresse ne sera pas conservée.
         </p>
       </div>
@@ -87,7 +92,7 @@
         Consultez votre itinéraire
       </div>
       <div class="controls">
-        <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+        <p class="step-note">
           🗺️ Visualisez l'itinéraire optimal pour vous rendre sur le site avec <strong>Géovélo</strong>, l'application de référence pour les trajets à vélo.
         </p>
       </div>
@@ -97,17 +102,37 @@
 	
   </div>
   
+
+  <button id="mobile-legend-toggle" class="mobile-legend-toggle" type="button" aria-expanded="false" aria-controls="legend-control" aria-label="Afficher la légende">i</button>
+
   <div id="legend-control">
   <div class="legend-inner">
-    <label for="toggle-cyclable" style="display: flex; align-items: center; gap: 8px;">
-      <input type="checkbox" id="toggle-cyclable" checked />
-      <span style="display: flex; align-items: center;">
-        <span class="legend-line"></span>
-        Réseau Cyclable Toulouse Métropole
-      </span>
-    </label>
+    <div class="mobile-legend-content">
+      <div class="legend-title">
+        <span style="font-size: 18px;">🚴</span>
+        <span>Temps de parcours</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch legend-30"></span>
+        <span class="legend-text">Moins de 30 minutes</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch legend-15"></span>
+        <span class="legend-text">Moins de 15 minutes</span>
+      </div>
+      <div class="legend-item">
+        <label for="toggle-cyclable" class="legend-toggle-label">
+          <input type="checkbox" id="toggle-cyclable" checked />
+          <span class="legend-toggle-content">
+            <span class="legend-line"></span>
+            Réseau Cyclable Toulouse Métropole
+          </span>
+        </label>
+      </div>
+    </div>
   </div>
 </div>
+
   
  
 
